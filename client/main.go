@@ -5,10 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"sort"
-	"strconv"
 
+	i "GRPC-Middleware-Example/interceptors"
 	pb "GRPC-Middleware-Example/releases"
+
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 
 	"google.golang.org/grpc"
 )
@@ -17,22 +18,13 @@ var (
 	serverAddr = flag.String("server_addr", "127.0.0.1:10000", "The server address in the format of host:port")
 )
 
-// ByVersion sort helper for credentials
-type ByVersion []*pb.ReleaseInfo
-
-func (a ByVersion) Len() int      { return len(a) }
-func (a ByVersion) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-
-func (a ByVersion) Less(i, j int) bool {
-	aiv, _ := strconv.Atoi(a[i].Version)
-	ajv, _ := strconv.Atoi(a[j].Version)
-	return aiv < ajv
-}
-
 func main() {
 	flag.Parse()
 
-	conn, err := grpc.Dial(*serverAddr, grpc.WithInsecure())
+	// conn, err := grpc.Dial(*serverAddr, grpc.WithInsecure())
+	// conn, err := grpc.Dial(*serverAddr, grpc.WithInsecure(), grpc.WithUnaryInterceptor(i.ClientInterceptorA))
+	conn, err := grpc.Dial(*serverAddr, grpc.WithInsecure(), grpc.WithUnaryInterceptor(grpc_middleware.ChainUnaryClient(i.ClientInterceptorA, i.ClientInterceptorB)))
+
 	if err != nil {
 		log.Fatalf("grpc.Dial err: %v", err)
 	}
@@ -48,9 +40,6 @@ func main() {
 
 	releases := rsp.GetReleases()
 	if len(releases) > 0 {
-		sort.Sort(ByVersion(releases))
-		// sort.Sort(releases)
-
 		fmt.Printf("Version\tRelease Date\tRelease Notes\n")
 	} else {
 		fmt.Println("No releases found")
