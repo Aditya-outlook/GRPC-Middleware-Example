@@ -18,19 +18,24 @@ func ServerInterceptorA(ctx context.Context,
 	req interface{},
 	info *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler) (interface{}, error) {
-	// Before calling the handler
 	start := time.Now()
-	log.Println("A - start: ", start)
 
+	// Preprocessing
+	log.Println("ServerInterceptor A - Preprocessing step(s) before calling the handler")
+
+	// Before calling the handler
+	log.Printf("ServerInterceptor A - Invoking handler / Next interceptor - Method:%s\n", info.FullMethod)
 	// Calls the handler
 	h, err := handler(ctx, req)
 
 	// After calling the handler
-	log.Printf("A - Request - Method:%s\tDuration:%s\tError:%v\n",
+	log.Printf("ServerInterceptor A - Response from handler - Method:%s\tDuration:%s\tError:%v\n",
 		info.FullMethod,
 		time.Since(start),
 		err)
-	log.Println("A - End: ", time.Now())
+
+	// Postprocessing
+	log.Println("ServerInterceptor A - Postprocessing step(s) after calling the handler")
 
 	return h, err
 }
@@ -40,19 +45,29 @@ func ServerInterceptorB(ctx context.Context,
 	req interface{},
 	info *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler) (interface{}, error) {
-	// Before calling the handler
 	start := time.Now()
-	log.Println("B - start: ", start)
 
+	// Preprocessing
+	log.Println("ServerInterceptor B - Preprocessing step(s) before calling the handler")
+
+	// Before calling the handler
+	log.Printf("ServerInterceptor B - Invoking handler / Next interceptor - Method:%s\n", info.FullMethod)
 	// Calls the handler
 	h, err := handler(ctx, req)
 
 	// After calling the handler
-	log.Printf("B - Request - Method:%s\tDuration:%s\tError:%v\n",
+	log.Printf("ServerInterceptor B - Response from handler - Method:%s\tDuration:%s\tError:%v\n",
 		info.FullMethod,
 		time.Since(start),
 		err)
-	log.Println("B - End: ", time.Now())
+
+	// Postprocessing
+	log.Println("ServerInterceptor B - Postprocessing step(s) after calling the handler")
 
 	return h, err
+}
+}
+}
+	return h, err
+}
 }

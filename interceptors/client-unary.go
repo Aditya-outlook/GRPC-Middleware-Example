@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+// ClientInterceptorA is an example that intercepts the RPC calls
 func ClientInterceptorA(
 	ctx context.Context,
 	method string,
@@ -17,20 +18,26 @@ func ClientInterceptorA(
 	invoker grpc.UnaryInvoker,
 	opts ...grpc.CallOption,
 ) error {
-	// Logic before invoking the invoker
 	start := time.Now()
-	log.Println("A - start: ", start)
+	// Preprocessing
+	log.Println("ClientInterceptor A - Preprocessing step(s) before invoking the RPC")
 
-	// Calls the invoker to execute RPC
+	// Before invoking the RPC
+	log.Printf("ClientInterceptor A - Invoking RPC method=%s;", method)
+
+	// Invoking the RPC
 	err := invoker(ctx, method, req, reply, cc, opts...)
 
-	// Logic after invoking the invoker
-	log.Printf("A - Invoked RPC method=%s; Duration=%s; Error=%v", method,
+	// After invoking the RPC
+	log.Printf("ClientInterceptor A - Invoked RPC method=%s; Duration=%s; Error=%v", method,
 		time.Since(start), err)
-	log.Println("A - End: ", time.Now())
+
+	// Postprocessing
+	log.Println("ClientInterceptor A - Postprocessing after invoking the RPC")
 	return err
 }
 
+// ClientInterceptorB is another example that intercepts the RPC calls
 func ClientInterceptorB(
 	ctx context.Context,
 	method string,
@@ -40,16 +47,21 @@ func ClientInterceptorB(
 	invoker grpc.UnaryInvoker,
 	opts ...grpc.CallOption,
 ) error {
-	// Logic before invoking the invoker
 	start := time.Now()
-	log.Println("B - start: ", start)
+	// Preprocessing
+	log.Println("ClientInterceptor B - Preprocessing step(s) before invoking the RPC")
 
-	// Calls the invoker to execute RPC
+	// Before invoking the RPC
+	log.Printf("ClientInterceptor B - Invoking RPC method=%s;", method)
+
+	// Invoking the RPC
 	err := invoker(ctx, method, req, reply, cc, opts...)
 
-	// Logic after invoking the invoker
-	log.Printf("B - Invoked RPC method=%s; Duration=%s; Error=%v", method,
+	// After invoking the RPC
+	log.Printf("ClientInterceptor B - Invoked RPC method=%s; Duration=%s; Error=%v", method,
 		time.Since(start), err)
-	log.Println("B - End: ", time.Now())
+
+	// Postprocessing
+	log.Println("ClientInterceptor B - Postprocessing after invoking the RPC")
 	return err
 }
