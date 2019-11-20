@@ -1,0 +1,94 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "daaas.nokia.common";
+package releases;
+
+
+message Status 
+{
+   StatusCode status_code  = 1;
+   StatusDescription status_description = 2; 
+}
+
+enum StatusCode 
+{
+   UNSPECIFIED = 0;
+   SUCCESS = 1;
+   PARTIAL_SUCCESS = 2;
+   FAILURE = 3;
+}
+
+message StatusDescription
+{
+   DescriptionCode description_code = 1;
+   string description = 2;
+}
+
+enum DescriptionCode
+{
+   NOT_SPECIFIED = 0;
+   INVALID_ARGUMENT = 1;  //Used when input parameter validation fails.
+   SERVICE_UNAVAILABLE = 2;  //Used when any GRPC failure occurs.
+   ALREADY_EXIST = 3;
+   NOT_FOUND = 4;
+   UNAUTHORIZED_ACCESS = 5;
+   INVALID_OPERATION = 6;
+   NOT_SUPPORTED = 7;
+   INTERNAL_ERROR = 8;        //Used when DB operation is failed for internal reason. Such as communication error 
+
+   // UM Specific codes   
+   INVALID_USERNAME = 10;     //Used when username is invalid
+   CAPTCHA_UNAUTHORIZED = 12; //Used when captcha is unauthorized
+   CREATE_USER_FAILED = 13;   //Used when creation user is failed
+   LOGIN_FAILED = 14;         //Used when user credentials are incorrect, connectivity to backend is lost
+   OWNER_DOES_NOT_EXIST = 15; //Used when owner does not exist
+   CANNOT_DELETE_USER = 16;   //Used when delete of user is failed due to delegate accounts 
+   TOKEN_INVALID = 17;        //Used when token is invalid for account
+   RESET_PASSWORD_FAILED = 18; //Used when password reset is failed
+   ASSIGN_ROLE_USER_FAILED = 19; //Used when assignment of role to user failed
+   CANNOT_DELETE_ACCOUNT = 20; //Used when Account deletion failed
+   NOT_FOUND_IN_FREEIPA = 21; 
+   FOUND_IN_FREEIPA = 22;
+   //reserved for UM 10 to 40
+   //Add necessary microservice specific codes here
+
+   // PNM specific error codes. Reserved from 41 to 69
+   DELETE_IN_PROGRESS = 41 ;
+   FACTORY_RESET_IN_PROGRESS = 42 ;
+   CREATE_IN_PROGRESS = 43;
+   PNMID_NOT_FOUND = 44;
+   HW_INACTIVE = 45;
+   
+   // NDC (Network Device Configurator) specific error codes. Reserved from 70..99
+   // Authentication failed to Network Device (either the username, ssh password, or ssh key (whichever is used) is incorrect).
+   AUTHENTICATION_FAILED_TO_NETWORK_DEVICE = 70;
+   // Non-authentication related problems reported by communicating with Network Devices,
+   // e.g. trying to commit a configuration with syntax error.
+   ERROR_FROM_NETWORK_DEVICE = 71;
+   // If there is no confirmed commit in progress, but trying to do a confirming commit.
+   CONFIRMING_COMMIT_NOT_POSSIBLE = 72;
+   // If there is no confirmed commit in progress, but trying to do a cancel commit.
+   CANCEL_COMMIT_NOT_POSSIBLE = 73;
+   // This error is returned when an operation is already in progress e.g. the Network Device is already being configured,
+   // and a concurrent request arrives.
+   ERROR_ANOTHER_OPERATION_IS_IN_PROGRESS = 74;
+   // Operation has started, but still in progress (for Query<...> rpc-s)
+   OPERATION_IN_PROGRESS = 75;
+   // A Network Device (e.g. Juniper SRX) got a configuration which was semantically faulty and cut the Edge network connectivity
+   // from the Internet/DC, and therefore this configuration needed to be canceled (rolled back to the previous, working configuration).
+   ERROR_FAULTY_NETWORK_DEVICE_CONFIG_CANCELED = 76;
+   
+   // ENC (Edge Network Configurator) specific error codes. Reserved from 100..119
+   // ENC did not recieve push notification in an operation specific timeout.
+   OPERATION_TIMED_OUT = 100;
+
+   //License Management .. Reserved from 120 to 140
+   LICENSE_EXPIRED  = 120;
+
+   //NHGC specific error codes. Reserved from 141..160
+   MANUAL_CONFIG = 141;
+
+   //MCN specific error case
+   MCN_NOT_REACHABLE = 161;
+
+}

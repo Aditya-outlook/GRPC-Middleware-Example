@@ -1,0 +1,28 @@
+{
+    "Go": {
+        "Version": {
+            "description": "Accepted characters: 0-9 A-Z a-z _ .",
+            "accept_example": "testuser_.",
+            "reject_example": "    testuser@",
+            "min_length": 3,
+            "max_length": 10,
+            "regex": "^([0-9A-Za-z_.]+)$"
+        },
+        "Param2": {
+            "description": "Accepted characters: 0-9 A-Z a-z _ - + . , ; / ! @ # $ % ^",
+            "accept_example": "testuser_.",
+            "reject_example": "    testuser`",
+            "min_length": 1,
+            "max_length": 2,
+            "regex": "^([0-9A-Za-z_.+,;/!@#$%^-]+)$"
+        },
+        "Param3": {
+            "description": "Accepted characters: 0-9 A-Z a-z _ .",
+            "accept_example": "testuser_.",
+            "reject_example": "    testuser@",
+            "min_length": 1,
+            "max_length": 3,
+            "regex": "^([0-9A-Za-z_.]+)$"
+        }
+    }
+}

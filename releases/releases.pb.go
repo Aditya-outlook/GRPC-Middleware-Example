@@ -149,30 +149,130 @@ func (m *ListReleasesResponse) GetReleases() []*ReleaseInfo {
 	return nil
 }
 
+type GetReleaseRequest struct {
+	Version              string   `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`
+	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
+	Param3               string   `protobuf:"bytes,3,opt,name=param3,proto3" json:"param3,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetReleaseRequest) Reset()         { *m = GetReleaseRequest{} }
+func (m *GetReleaseRequest) String() string { return proto.CompactTextString(m) }
+func (*GetReleaseRequest) ProtoMessage()    {}
+func (*GetReleaseRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b86db821e9daf711, []int{3}
+}
+
+func (m *GetReleaseRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetReleaseRequest.Unmarshal(m, b)
+}
+func (m *GetReleaseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetReleaseRequest.Marshal(b, m, deterministic)
+}
+func (m *GetReleaseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetReleaseRequest.Merge(m, src)
+}
+func (m *GetReleaseRequest) XXX_Size() int {
+	return xxx_messageInfo_GetReleaseRequest.Size(m)
+}
+func (m *GetReleaseRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetReleaseRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetReleaseRequest proto.InternalMessageInfo
+
+func (m *GetReleaseRequest) GetVersion() string {
+	if m != nil {
+		return m.Version
+	}
+	return ""
+}
+
+func (m *GetReleaseRequest) GetParam2() int32 {
+	if m != nil {
+		return m.Param2
+	}
+	return 0
+}
+
+func (m *GetReleaseRequest) GetParam3() string {
+	if m != nil {
+		return m.Param3
+	}
+	return ""
+}
+
+type GetReleaseResponse struct {
+	Release              *ReleaseInfo `protobuf:"bytes,1,opt,name=release,proto3" json:"release,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *GetReleaseResponse) Reset()         { *m = GetReleaseResponse{} }
+func (m *GetReleaseResponse) String() string { return proto.CompactTextString(m) }
+func (*GetReleaseResponse) ProtoMessage()    {}
+func (*GetReleaseResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b86db821e9daf711, []int{4}
+}
+
+func (m *GetReleaseResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetReleaseResponse.Unmarshal(m, b)
+}
+func (m *GetReleaseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetReleaseResponse.Marshal(b, m, deterministic)
+}
+func (m *GetReleaseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetReleaseResponse.Merge(m, src)
+}
+func (m *GetReleaseResponse) XXX_Size() int {
+	return xxx_messageInfo_GetReleaseResponse.Size(m)
+}
+func (m *GetReleaseResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetReleaseResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetReleaseResponse proto.InternalMessageInfo
+
+func (m *GetReleaseResponse) GetRelease() *ReleaseInfo {
+	if m != nil {
+		return m.Release
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*ReleaseInfo)(nil), "releases.ReleaseInfo")
 	proto.RegisterType((*ListReleasesRequest)(nil), "releases.ListReleasesRequest")
 	proto.RegisterType((*ListReleasesResponse)(nil), "releases.ListReleasesResponse")
+	proto.RegisterType((*GetReleaseRequest)(nil), "releases.GetReleaseRequest")
+	proto.RegisterType((*GetReleaseResponse)(nil), "releases.GetReleaseResponse")
 }
 
 func init() { proto.RegisterFile("releases.proto", fileDescriptor_b86db821e9daf711) }
 
 var fileDescriptor_b86db821e9daf711 = []byte{
-	// 217 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2b, 0x4a, 0xcd, 0x49,
-	0x4d, 0x2c, 0x4e, 0x2d, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x80, 0xf1, 0x95, 0xca,
-	0xb8, 0xb8, 0x83, 0x20, 0x6c, 0xcf, 0xbc, 0xb4, 0x7c, 0x21, 0x09, 0x2e, 0xf6, 0xb2, 0xd4, 0xa2,
-	0xe2, 0xcc, 0xfc, 0x3c, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x18, 0x57, 0x48, 0x91, 0x8b,
-	0x07, 0xaa, 0x29, 0x3e, 0x25, 0xb1, 0x24, 0x55, 0x82, 0x09, 0x2c, 0xcd, 0x0d, 0x15, 0x73, 0x49,
-	0x2c, 0x49, 0x15, 0xd2, 0xe2, 0x12, 0x84, 0x29, 0xc9, 0xcb, 0x2f, 0x49, 0x2d, 0x8e, 0x2f, 0x2d,
-	0xca, 0x91, 0x60, 0x06, 0xab, 0xe3, 0x87, 0x4a, 0xf8, 0x81, 0xc4, 0x43, 0x8b, 0x72, 0x94, 0x44,
-	0xb9, 0x84, 0x7d, 0x32, 0x8b, 0x4b, 0xa0, 0x76, 0x17, 0x07, 0xa5, 0x16, 0x96, 0xa6, 0x16, 0x97,
-	0x28, 0x79, 0x72, 0x89, 0xa0, 0x0a, 0x17, 0x17, 0xe4, 0xe7, 0x15, 0xa7, 0x0a, 0x19, 0x72, 0xc1,
-	0x9d, 0x2c, 0xc1, 0xa8, 0xc0, 0xac, 0xc1, 0x6d, 0x24, 0xaa, 0x07, 0xf7, 0x13, 0x92, 0x07, 0x82,
-	0xe0, 0xca, 0x8c, 0x92, 0xb9, 0x04, 0xdc, 0xf3, 0xa1, 0x52, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9,
-	0xa9, 0x42, 0xfe, 0x5c, 0x3c, 0xc8, 0xc6, 0x0b, 0xc9, 0x22, 0x0c, 0xc1, 0xe2, 0x1a, 0x29, 0x39,
-	0x5c, 0xd2, 0x10, 0x57, 0x29, 0x31, 0x24, 0xb1, 0x81, 0xc3, 0xd3, 0x18, 0x10, 0x00, 0x00, 0xff,
-	0xff, 0xe7, 0x5a, 0xec, 0xe6, 0x61, 0x01, 0x00, 0x00,
+	// 284 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0xdd, 0x4a, 0xf3, 0x40,
+	0x10, 0xfd, 0xf2, 0x15, 0x5b, 0x9d, 0x14, 0xb5, 0xa3, 0x95, 0x50, 0x7f, 0xa8, 0xb9, 0x2a, 0x5e,
+	0x54, 0x4c, 0x5f, 0x41, 0x29, 0x01, 0x51, 0x58, 0xf1, 0x52, 0xca, 0xaa, 0x23, 0x04, 0x62, 0x36,
+	0xee, 0x6e, 0xf3, 0x58, 0x3e, 0xa3, 0xb8, 0x9d, 0x4d, 0x22, 0xb6, 0xde, 0xe5, 0xfc, 0xe4, 0xe4,
+	0x9c, 0x21, 0xb0, 0xab, 0x29, 0x27, 0x69, 0xc8, 0x4c, 0x4b, 0xad, 0xac, 0xc2, 0x6d, 0x8f, 0xe3,
+	0x0a, 0x42, 0xb1, 0x7a, 0x4e, 0x8b, 0x37, 0x85, 0x11, 0xf4, 0x2a, 0xd2, 0x26, 0x53, 0x45, 0x14,
+	0x8c, 0x83, 0xc9, 0x8e, 0xf0, 0x10, 0xcf, 0xa1, 0xcf, 0x2f, 0x2d, 0x5e, 0xa5, 0xa5, 0xe8, 0xbf,
+	0x93, 0x43, 0xe6, 0xae, 0xa5, 0x25, 0xbc, 0x80, 0x81, 0xb7, 0x14, 0xca, 0x92, 0x59, 0x2c, 0x75,
+	0x1e, 0x75, 0x9c, 0x6f, 0x8f, 0x85, 0xbb, 0x6f, 0xfe, 0x51, 0xe7, 0xf1, 0x10, 0x0e, 0x6e, 0x33,
+	0x63, 0xf9, 0xdb, 0x46, 0xd0, 0xc7, 0x92, 0x8c, 0x8d, 0x53, 0x38, 0xfc, 0x49, 0x9b, 0x52, 0x15,
+	0x86, 0xf0, 0x0a, 0xea, 0xca, 0x51, 0x30, 0xee, 0x4c, 0xc2, 0x64, 0x38, 0xad, 0x37, 0xb5, 0x06,
+	0x88, 0x66, 0xd9, 0x13, 0x0c, 0xe6, 0xe4, 0x93, 0x38, 0xff, 0x8f, 0x7d, 0x47, 0xd0, 0x2d, 0xa5,
+	0x96, 0xef, 0x89, 0x5b, 0xb6, 0x25, 0x18, 0xd5, 0xfc, 0x8c, 0x97, 0x30, 0x8a, 0x6f, 0x00, 0xdb,
+	0xf1, 0xdc, 0xf3, 0x12, 0x7a, 0x5c, 0xc0, 0xe5, 0x6f, 0xac, 0xe9, 0x5d, 0xc9, 0x67, 0x00, 0xfb,
+	0x73, 0xc5, 0xd2, 0x03, 0xe9, 0x2a, 0x7b, 0x21, 0xbc, 0x87, 0x7e, 0xfb, 0x0a, 0x78, 0xda, 0x84,
+	0xac, 0x39, 0xda, 0xe8, 0x6c, 0x93, 0xbc, 0x2a, 0x15, 0xff, 0xc3, 0x14, 0xa0, 0x29, 0x8b, 0xc7,
+	0x8d, 0xff, 0xd7, 0x85, 0x46, 0x27, 0xeb, 0x45, 0x1f, 0xf5, 0xdc, 0x75, 0x7f, 0xd0, 0xec, 0x2b,
+	0x00, 0x00, 0xff, 0xff, 0xda, 0x7f, 0x3e, 0x4c, 0x53, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -188,6 +288,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GoReleaseServiceClient interface {
 	ListReleases(ctx context.Context, in *ListReleasesRequest, opts ...grpc.CallOption) (*ListReleasesResponse, error)
+	GetRelease(ctx context.Context, in *GetReleaseRequest, opts ...grpc.CallOption) (*GetReleaseResponse, error)
 }
 
 type goReleaseServiceClient struct {
@@ -207,9 +308,19 @@ func (c *goReleaseServiceClient) ListReleases(ctx context.Context, in *ListRelea
 	return out, nil
 }
 
+func (c *goReleaseServiceClient) GetRelease(ctx context.Context, in *GetReleaseRequest, opts ...grpc.CallOption) (*GetReleaseResponse, error) {
+	out := new(GetReleaseResponse)
+	err := c.cc.Invoke(ctx, "/releases.GoReleaseService/GetRelease", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GoReleaseServiceServer is the server API for GoReleaseService service.
 type GoReleaseServiceServer interface {
 	ListReleases(context.Context, *ListReleasesRequest) (*ListReleasesResponse, error)
+	GetRelease(context.Context, *GetReleaseRequest) (*GetReleaseResponse, error)
 }
 
 // UnimplementedGoReleaseServiceServer can be embedded to have forward compatible implementations.
@@ -218,6 +329,9 @@ type UnimplementedGoReleaseServiceServer struct {
 
 func (*UnimplementedGoReleaseServiceServer) ListReleases(ctx context.Context, req *ListReleasesRequest) (*ListReleasesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListReleases not implemented")
+}
+func (*UnimplementedGoReleaseServiceServer) GetRelease(ctx context.Context, req *GetReleaseRequest) (*GetReleaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRelease not implemented")
 }
 
 func RegisterGoReleaseServiceServer(s *grpc.Server, srv GoReleaseServiceServer) {
@@ -242,6 +356,24 @@ func _GoReleaseService_ListReleases_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GoReleaseService_GetRelease_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReleaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GoReleaseServiceServer).GetRelease(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/releases.GoReleaseService/GetRelease",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GoReleaseServiceServer).GetRelease(ctx, req.(*GetReleaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _GoReleaseService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "releases.GoReleaseService",
 	HandlerType: (*GoReleaseServiceServer)(nil),
@@ -249,6 +381,10 @@ var _GoReleaseService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListReleases",
 			Handler:    _GoReleaseService_ListReleases_Handler,
+		},
+		{
+			MethodName: "GetRelease",
+			Handler:    _GoReleaseService_GetRelease_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

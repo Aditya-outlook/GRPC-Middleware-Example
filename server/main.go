@@ -12,6 +12,7 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 
 	i "GRPC-Middleware-Example/interceptors"
+	pv "GRPC-Middleware-Example/interceptors/parametervalidation"
 	pb "GRPC-Middleware-Example/releases"
 )
 
@@ -43,6 +44,18 @@ func (g *goReleaseService) ListReleases(ctx context.Context, r *pb.ListReleasesR
 	}, nil
 }
 
+func (g *goReleaseService) GetRelease(ctx context.Context, r *pb.GetReleaseRequest) (*pb.GetReleaseResponse, error) {
+	info := pb.ReleaseInfo{
+		Version:         r.Version,
+		ReleaseDate:     "21.10.2009",
+		ReleaseNotesUrl: "First release",
+	}
+
+	return &pb.GetReleaseResponse{
+		Release: &info,
+	}, nil
+}
+
 func main() {
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
 	if err != nil {
@@ -51,7 +64,9 @@ func main() {
 	log.Println("Listening on ", fmt.Sprintf("localhost:%d", *port))
 
 	var opts []grpc.ServerOption
-	opts = append(opts, grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(i.ServerInterceptorA, i.ServerInterceptorB)))
+	var interceptorChain = grpc_middleware.ChainUnaryServer(pv.RPCParameterValidator, i.ServerInterceptorB)
+	opts = append(opts, grpc.UnaryInterceptor(interceptorChain))
+	// opts = append(opts, grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(i.ServerInterceptorB, pv.RPCParameterValidator)))
 
 	server := grpc.NewServer(opts...)
 	svc := &goReleaseService{releases: make(map[string]pb.ReleaseInfo)}

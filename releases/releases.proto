@@ -16,6 +16,17 @@ message ListReleasesResponse {
     repeated ReleaseInfo releases = 1;
 }
 
+message GetReleaseRequest {
+    string version = 1;
+    int32 param2 = 2;
+    string param3 = 3;
+}
+
+message GetReleaseResponse {
+    ReleaseInfo release = 1;
+}
+
 service GoReleaseService {
     rpc ListReleases(ListReleasesRequest) returns (ListReleasesResponse) {}
+    rpc GetRelease(GetReleaseRequest) returns (GetReleaseResponse) {}
 }

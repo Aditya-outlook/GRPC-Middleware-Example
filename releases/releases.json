@@ -1,0 +1,9 @@
+{
+    "GoReleaseService": {
+        "GetRelease": {
+            "Version": "Go.Version",
+            "Param2": "Go.Param2",
+            "Param3": "Go.Param3"
+        }
+    }
+}
